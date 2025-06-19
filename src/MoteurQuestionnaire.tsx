@@ -1,4 +1,4 @@
-// Fichier : src/MoteurQuestionnaire.tsx (Version Finale)
+// Fichier : src/MoteurQuestionnaire.tsx
 
 import React, { useState } from 'react';
 import { QuestionnaireConfig, Question } from './configurations/types.js';
@@ -8,6 +8,7 @@ interface MoteurProps {
   email: string;
 }
 
+// Le composant est déclaré ici
 const MoteurQuestionnaire: React.FC<MoteurProps> = ({ config, email }) => {
   const [answers, setAnswers] = useState<(string | null)[]>(Array(config.questions.length).fill(null));
   const [submitted, setSubmitted] = useState(false);
@@ -36,6 +37,7 @@ const MoteurQuestionnaire: React.FC<MoteurProps> = ({ config, email }) => {
     setSendStatus('idle');
   };
 
+  // --- Calculs de score ---
   const totalPoints = answers.reduce((sum, answer, idx) => {
     if (!answer) return sum;
     const question = config.questions[idx];
@@ -50,12 +52,14 @@ const MoteurQuestionnaire: React.FC<MoteurProps> = ({ config, email }) => {
 
   const result = config.results.find(r => totalPoints >= r.min && totalPoints <= r.max);
   const progressPercentage = ((current + 1) / config.questions.length) * 100;
-
+  
+  // --- Envoi d'email ---
   const handleSendResults = async () => {
     setSending(true);
     setSendStatus('idle');
     if (!result) return;
 
+    // On prépare un tableau détaillé des questions et réponses
     const fullAnswers = config.questions.map((question, index) => {
         const answerValue = answers[index];
         const selectedOption = question.options.find(opt => opt.value === answerValue);
@@ -80,7 +84,7 @@ const MoteurQuestionnaire: React.FC<MoteurProps> = ({ config, email }) => {
         }),
       });
 
-      if (!response.ok) throw new Error('La réponse du serveur n\'est pas OK');
+      if (!response.ok) throw new Error('Réponse serveur non OK');
       setSendStatus('success');
     } catch (error) {
       console.error("Erreur d'envoi:", error);
@@ -90,6 +94,7 @@ const MoteurQuestionnaire: React.FC<MoteurProps> = ({ config, email }) => {
     }
   };
 
+  // --- Rendu Visuel ---
   if (!submitted) {
     const currentQuestion: Question = config.questions[current];
     return (
@@ -151,4 +156,5 @@ const MoteurQuestionnaire: React.FC<MoteurProps> = ({ config, email }) => {
   );
 };
 
+// La ligne cruciale pour exporter le composant
 export default MoteurQuestionnaire;
