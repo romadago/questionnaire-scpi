@@ -2,6 +2,8 @@
 
 import { QuestionnaireConfig } from './types.js';
 
+// --- DÉFINITION DES DONNÉES POUR LE QUESTIONNAIRE SCPI ---
+
 const questions = [
   {
     id: 'q1_signification',
@@ -105,6 +107,7 @@ const questions = [
   },
 ];
 
+// --- RÉSULTATS AVEC COMMENTAIRES ENRICHIS ---
 const results = [
   {
     min: 0,
@@ -128,6 +131,9 @@ const results = [
     description: "Bravo, votre maîtrise du sujet est impressionnante ! Vous comprenez non seulement le fonctionnement, mais aussi les opportunités et les limites des SCPI. Notre discussion ne portera pas sur les bases, mais sur l'optimisation fine : comment intégrer au mieux cet outil dans votre stratégie patrimoniale globale ? Challengeons nos idées.",
   },
 ];
+
+
+// --- L'OBJET DE CONFIGURATION FINAL ---
 
 export const configSCPI: QuestionnaireConfig = {
   id: 'scpi',
