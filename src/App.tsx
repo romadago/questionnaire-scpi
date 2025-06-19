@@ -11,6 +11,9 @@ function App() {
   const [email, setEmail] = useState("");
   const [quizStarted, setQuizStarted] = useState(false);
 
+  // On assigne directement la configuration SCPI
+  const config = configSCPI;
+
   const handleStartQuiz = (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
@@ -34,7 +37,7 @@ function App() {
         {!quizStarted ? (
           <div className="text-center animate-fade-in">
             <h1 className="text-3xl font-bold mb-4 text-center text-cyan-vif">
-              Testez vos connaissances sur les SCPI
+              {config.titre}
             </h1>
             <p className="text-gray-300 mb-8 max-w-lg mx-auto">
               Répondez à nos 10 questions pour évaluer votre maîtrise de l'investissement en parts de SCPI.
@@ -59,7 +62,7 @@ function App() {
           </div>
         ) : (
           // Une fois le quiz démarré, on appelle le Moteur en lui passant la configuration SCPI
-          <MoteurQuestionnaire config={configSCPI} email={email} />
+          <MoteurQuestionnaire config={config} email={email} />
         )}
       </div>
     </div>
