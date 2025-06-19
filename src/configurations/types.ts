@@ -1,34 +1,34 @@
 // Fichier : src/configurations/types.ts
 
-// --- DÉFINITION DES STRUCTURES DE DONNÉES ---
-
-// Décrit la forme d'une seule option de réponse dans une question
+// On s'assure que chaque option peut avoir des points.
 export interface Option {
   label: string;
   value: string;
-  points: number;
+  points: number; 
 }
 
-// Décrit la forme d'une seule question complète
+// On ajoute l'ID unique et obligatoire à chaque question. C'est la correction principale.
 export interface Question {
-  question: string; // Le texte de la question
-  options: Option[]; // Un tableau contenant les options de réponse
+  id: string; 
+  question: string;
+  type: 'choix_unique' | 'choix_multiple';
+  options: Option[];
 }
 
-// Décrit la forme d'un seul niveau de résultat possible
+// On s'assure que chaque résultat a bien une tranche de score (min/max).
 export interface Result {
-  min: number; // Le score minimum pour obtenir ce résultat
-  max: number; // Le score maximum pour obtenir ce résultat
-  label: string; // Ex: "Débutant", "Intermédiaire"
-  imageSrc: string; // Le chemin vers l'image du résultat
-  description: string; // Le texte descriptif du résultat
+    min: number;
+    max: number;
+    label: string;
+    description: string;
+    imageSrc: string;
 }
 
-// Décrit la structure complète de la configuration pour un questionnaire
+// La configuration globale du questionnaire reste la même.
 export interface QuestionnaireConfig {
-  id: string; // Un identifiant unique (ex: "assurance-vie")
-  titre: string; // Le titre principal affiché sur le questionnaire
-  stockageId: string; // L'identifiant pour la base de données
-  questions: Question[]; // Le tableau de toutes les questions
-  results: Result[]; // Le tableau de tous les résultats possibles
+  id: string;
+  titre: string;
+  stockageId: string;
+  questions: Question[];
+  results: Result[];
 }
