@@ -1,8 +1,7 @@
-# Fichier : netlify.toml
-
 [build]
-  # Dossier à publier après la compilation
+  command = "npm run build"
   publish = "dist"
-  
-  # Dossier où se trouvent les fonctions
-  functions = "netlify/functions"
+
+[build.environment]
+  NODE_VERSION = "20"
+  NPM_VERSION = "10.8.0"
